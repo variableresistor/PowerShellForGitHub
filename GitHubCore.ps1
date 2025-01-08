@@ -585,7 +585,7 @@ function Invoke-GHRestMethod
     }
     finally
     {
-        if ($PSVersionTable.PSVersion -lt [version]"7.0.0")
+        if ($PSVersionTable.PSVersion -lt [Version]'7.0.0')
         {
             [Net.ServicePointManager]::SecurityProtocol = $originalSecurityProtocol
         }
