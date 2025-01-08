@@ -315,7 +315,7 @@ function Invoke-GHRestMethod
             # Disable Progress Bar in function scope during Invoke-WebRequest
             $ProgressPreference = 'SilentlyContinue'
 
-            if ($PSVersionTable.PSVersion -lt 7.0.0)
+            if ($PSVersionTable.PSVersion -lt [version]"7.0.0")
             {
                 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
             }
@@ -585,7 +585,7 @@ function Invoke-GHRestMethod
     }
     finally
     {
-        if ($PSVersionTable.PSVersion -lt 7.0.0)
+        if ($PSVersionTable.PSVersion -lt [version]"7.0.0")
         {
             [Net.ServicePointManager]::SecurityProtocol = $originalSecurityProtocol
         }
