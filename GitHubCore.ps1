@@ -317,7 +317,7 @@ function Invoke-GHRestMethod
 
             if ($PSVersionTable.PSVersion -lt [version]"7.0.0")
             {
-                [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
+                [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
             }
 
             $result = Invoke-WebRequest @params
