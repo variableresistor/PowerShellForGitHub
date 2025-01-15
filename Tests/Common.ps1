@@ -101,6 +101,7 @@ function Initialize-CommonTestSetup
     Set-GitHubConfiguration -LogRequestBody # Make it easier to debug UT failures
     Set-GitHubConfiguration -MultiRequestProgressThreshold 0 # Status corrupts the raw CI logs for Linux and Mac, and makes runs take slightly longer.
     Set-GitHubConfiguration -DisableUpdateCheck # The update check is unnecessary during tests.
+    Set-GitHubConfiguration -PerPage 0 # Tests should behave normally unless specifically testing the paging functionality
 
     # We execute so many successive state changing commands on the same object that sometimes
     # GitHub gets confused.  We'll add an intentional delay to slow down our execution in an effort

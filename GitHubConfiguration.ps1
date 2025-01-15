@@ -149,6 +149,14 @@ function Set-GitHubConfiguration
         value.
         Set to 0 to disable this feature.
 
+    .PARAMETER PerPage
+        When a response from the REST API would include many results, GitHub will paginate
+        the results and return a subset of the results. For example:
+        GET /repos/octocat/Spoon-Knife/issues
+        Will only return 30 issues from the octocat/Spoon-Knife repository even though the repository
+        includes over 1600 open issues. This makes the response easier to handle for servers and
+        for people.
+
     .PARAMETER RetryDelaySeconds
         The number of seconds to wait before retrying a command again after receiving a 202 response.
         The number of times that a retry will occur is controlled by the
@@ -238,6 +246,8 @@ function Set-GitHubConfiguration
         [int] $MaximumRetriesWhenResultNotReady,
 
         [int] $MultiRequestProgressThreshold,
+
+        [int] $PerPage,
 
         [int] $RetryDelaySeconds,
 
@@ -332,6 +342,7 @@ function Get-GitHubConfiguration
             'LogTimeAsUtc',
             'MaximumRetriesWhenResultNotReady',
             'MultiRequestProgressThreshold',
+            'PerPage',
             'RetryDelaySeconds',
             'StateChangeDelaySeconds',
             'SuppressNoTokenWarning',
@@ -691,6 +702,7 @@ function Import-GitHubConfiguration
         'logTimeAsUtc' = $false
         'maximumRetriesWhenResultNotReady' = 30
         'multiRequestProgressThreshold' = 10
+        'perPage' = 0
         'retryDelaySeconds' = 30
         'stateChangeDelaySeconds' = 0
         'suppressNoTokenWarning' = $false

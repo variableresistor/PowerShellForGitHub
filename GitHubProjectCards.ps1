@@ -93,6 +93,14 @@ filter Get-GitHubProjectCard
 
         $uriFragment = "/projects/columns/$Column/cards"
         $description = "Getting cards for column $Column"
+
+        $getParams = @()
+        $perPage = Get-GitHubConfiguration -Name PerPage
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+        if ($getParams.Count -gt 0)
+        {
+            $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
+        }
     }
     elseif ($PSCmdlet.ParameterSetName -eq 'Card')
     {

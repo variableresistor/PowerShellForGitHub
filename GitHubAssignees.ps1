@@ -92,8 +92,17 @@ filter Get-GitHubAssignee
         'RepositoryName' = (Get-PiiSafeString -PlainText $RepositoryName)
     }
 
+    $uriFragment = "repos/$OwnerName/$RepositoryName/assignees"
+    $getParams = @()
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+    if ($getParams.Count -gt 0)
+    {
+        $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
+    }
+
     $params = @{
-        'UriFragment' = "repos/$OwnerName/$RepositoryName/assignees"
+        'UriFragment' = $uriFragment
         'Description' = "Getting assignee list for $RepositoryName"
         'AccessToken' = $AccessToken
         'TelemetryEventName' = $MyInvocation.MyCommand.Name

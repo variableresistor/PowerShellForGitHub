@@ -223,6 +223,8 @@ filter Get-GitHubIssueComment
         'ProvidedComment' = $PSBoundParameters.ContainsKey('Comment')
     }
 
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    $getParams = @()
     if ($PSBoundParameters.ContainsKey('Comment'))
     {
         $uriFragment = "repos/$OwnerName/$RepositoryName/issues/comments/$Comment"
@@ -230,18 +232,22 @@ filter Get-GitHubIssueComment
     }
     elseif ($PSBoundParameters.ContainsKey('Issue'))
     {
-        $uriFragment = "repos/$OwnerName/$RepositoryName/issues/$Issue/comments`?"
-
+        $uriFragment = "repos/$OwnerName/$RepositoryName/issues/$Issue/comments"
         if ($PSBoundParameters.ContainsKey('Since'))
         {
-            $uriFragment += "since=$sinceFormattedTime"
+            $getParams += "since=$sinceFormattedTime"
         }
+        if ($perPage -gt 0)
+        {
+            $getParams += "per_page=$perPage"
+        }
+        if ($getParams.Count -gt 0) { $uriFragment = $uriFragment + '?' +  ($getParams -join '&') }
 
         $description = "Getting comments for issue $Issue in $RepositoryName"
     }
     else
     {
-        $getParams = @()
+        $uriFragment = "repos/$OwnerName/$RepositoryName/issues/comments"
 
         if ($PSBoundParameters.ContainsKey('Sort'))
         {
@@ -263,7 +269,9 @@ filter Get-GitHubIssueComment
             $getParams += "since=$sinceFormattedTime"
         }
 
-        $uriFragment = "repos/$OwnerName/$RepositoryName/issues/comments`?" +  ($getParams -join '&')
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+
+        if ($getParams.Count -gt 0) { $uriFragment = $uriFragment + '?' +  ($getParams -join '&') }
         $description = "Getting comments for $RepositoryName"
     }
 

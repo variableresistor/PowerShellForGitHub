@@ -147,14 +147,24 @@ filter Get-GitHubLabel
     $uriFragment = [String]::Empty
     $description = [String]::Empty
 
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
     if ($PSBoundParameters.ContainsKey('Issue'))
     {
         $uriFragment = "/repos/$OwnerName/$RepositoryName/issues/$Issue/labels"
+        if ($getParams.Count -gt 0)
+        {
+            $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
+        }
         $description = "Getting labels for Issue $Issue in $RepositoryName"
     }
     elseif ($PSBoundParameters.ContainsKey('MilestoneNumber'))
     {
         $uriFragment = "/repos/$OwnerName/$RepositoryName/milestones/$MilestoneNumber/labels"
+        if ($getParams.Count -gt 0)
+        {
+            $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
+        }
         $description = "Getting labels for issues in Milestone $MilestoneNumber in $RepositoryName"
     }
     else

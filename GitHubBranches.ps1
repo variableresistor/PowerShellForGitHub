@@ -138,8 +138,15 @@ filter Get-GitHubRepositoryBranch
     $getParams = @()
     if ($ProtectedOnly) { $getParams += 'protected=true' }
 
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+    if ($getParams.Count -gt 0)
+    {
+        $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
+    }
+
     $params = @{
-        'UriFragment' = $uriFragment + '?' + ($getParams -join '&')
+        'UriFragment' = $uriFragment
         'Description' = "Getting branches for $RepositoryName"
         'AccessToken' = $AccessToken
         'TelemetryEventName' = $MyInvocation.MyCommand.Name

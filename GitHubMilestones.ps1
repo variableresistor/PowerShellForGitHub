@@ -190,6 +190,10 @@ filter Get-GitHubMilestone
             $getParams += "state=$State"
         }
 
+        $getParams = @()
+        $perPage = Get-GitHubConfiguration -Name PerPage
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+
         $uriFragment = "repos/$OwnerName/$RepositoryName/milestones`?" +  ($getParams -join '&')
         $description = "Getting milestones for $RepositoryName"
     }

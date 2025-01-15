@@ -97,6 +97,11 @@ filter Get-GitHubGistComment
         $description = "Getting comments for gist $Gist"
     }
 
+    $getParams = @()
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+    if ($getParams.Count -gt 0) { $uriFragment = $uriFragment + '?' +  ($getParams -join '&') }
+
     $params = @{
         'UriFragment' = $uriFragment
         'Description' =  $description

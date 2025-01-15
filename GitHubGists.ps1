@@ -249,6 +249,11 @@ filter Get-GitHubGist
     }
 
     $getParams = @()
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+    if ($getParams.Count -gt 0) { $uriFragment = $uriFragment + '?' +  ($getParams -join '&') }
+
+    $getParams = @()
     $sinceFormattedTime = [String]::Empty
     if ($null -ne $Since)
     {

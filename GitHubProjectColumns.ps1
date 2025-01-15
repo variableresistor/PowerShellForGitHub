@@ -80,6 +80,14 @@ filter Get-GitHubProjectColumn
 
         $uriFragment = "/projects/$Project/columns"
         $description = "Getting project columns for $Project"
+
+        $getParams = @()
+        $perPage = Get-GitHubConfiguration -Name PerPage
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+        if ($getParams.Count -gt 0)
+        {
+            $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
+        }
     }
     elseif ($PSCmdlet.ParameterSetName -eq 'Column')
     {

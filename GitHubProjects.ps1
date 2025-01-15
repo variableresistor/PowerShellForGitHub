@@ -155,6 +155,8 @@ filter Get-GitHubProject
 
     $uriFragment = [String]::Empty
     $description = [String]::Empty
+    $getParams = @()
+    $perPage = Get-GitHubConfiguration -Name PerPage
     if ($PSCmdlet.ParameterSetName -in @('Project', 'ProjectObject'))
     {
         $telemetryProperties['Project'] = Get-PiiSafeString -PlainText $Project
@@ -173,6 +175,8 @@ filter Get-GitHubProject
 
         $uriFragment = "/repos/$OwnerName/$RepositoryName/projects"
         $description = "Getting projects for $RepositoryName"
+
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
     }
     elseif ($PSCmdlet.ParameterSetName -eq 'Organization')
     {
@@ -180,6 +184,8 @@ filter Get-GitHubProject
 
         $uriFragment = "/orgs/$OrganizationName/projects"
         $description = "Getting projects for $OrganizationName"
+
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
     }
     elseif ($PSCmdlet.ParameterSetName -eq 'User')
     {
@@ -187,6 +193,8 @@ filter Get-GitHubProject
 
         $uriFragment = "/users/$UserName/projects"
         $description = "Getting projects for $UserName"
+
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
     }
 
     if ($PSBoundParameters.ContainsKey('State'))
@@ -195,8 +203,12 @@ filter Get-GitHubProject
         $State = $State.ToLower()
         $getParams += "state=$State"
 
-        $uriFragment = "$uriFragment`?" + ($getParams -join '&')
         $description += " with state '$state'"
+    }
+
+    if ($getParams.Count -gt 0)
+    {
+        $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
     }
 
     $params = @{

@@ -135,6 +135,9 @@ filter Get-GitHubTeam
     $description = [String]::Empty
     $teamType = [String]::Empty
 
+    $getParams = @()
+    $perPage = Get-GitHubConfiguration -Name PerPage
+
     if ($PSBoundParameters.ContainsKey('TeamName') -and
         (-not $PSBoundParameters.ContainsKey('OrganizationName')))
     {
@@ -152,6 +155,8 @@ filter Get-GitHubTeam
         $uriFragment = "/repos/$OwnerName/$RepositoryName/teams"
         $description = "Getting teams for $RepositoryName"
         $teamType = $script:GitHubTeamSummaryTypeName
+
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
     }
     elseif ($PSCmdlet.ParameterSetName -eq 'TeamSlug')
     {
@@ -168,6 +173,12 @@ filter Get-GitHubTeam
         $uriFragment = "/orgs/$OrganizationName/teams"
         $description = "Getting teams in $OrganizationName"
         $teamType = $script:GitHubTeamSummaryTypeName
+
+        if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+    }
+    if ($getParams.Count -gt 0)
+    {
+        $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
     }
 
     $params = @{

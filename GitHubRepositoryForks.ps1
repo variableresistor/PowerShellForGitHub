@@ -95,6 +95,8 @@ filter Get-GitHubRepositoryFork
     $getParams = @(
         "sort=$($Sort.ToLower())"
     )
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
 
     $params = @{
         'UriFragment' = "repos/$OwnerName/$RepositoryName/forks`?" +  ($getParams -join '&')

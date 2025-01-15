@@ -346,6 +346,9 @@ filter Get-GitHubIssue
         $getParams += "mentioned=$Mentioned"
     }
 
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+
     $params = @{
         'UriFragment' = $uriFragment + '?' +  ($getParams -join '&')
         'Description' = $description

@@ -55,8 +55,17 @@ filter Get-GitHubOrganizationMember
         'OrganizationName' = (Get-PiiSafeString -PlainText $OrganizationName)
     }
 
+    $uriFragment = "orgs/$OrganizationName/members"
+    $getParams = @()
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+    if ($getParams.Count -gt 0)
+    {
+        $uriFragment = $uriFragment + '?' +  ($getParams -join '&')
+    }
+
     $params = @{
-        'UriFragment' = "orgs/$OrganizationName/members"
+        'UriFragment' = $uriFragment
         'Description' = "Getting members for $OrganizationName"
         'AccessToken' = $AccessToken
         'TelemetryEventName' = $MyInvocation.MyCommand.Name

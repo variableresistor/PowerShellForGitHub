@@ -406,6 +406,7 @@ you must make a couple changes:
     > Unfortunately, you cannot use `-SessionOnly` with `Set-GitHubAuthentication` when testing,
     > as Pester works by making new sessions for every test.  That means that it must be "globally"
     > configured with that access token for the duration of the Pester test execution.
+ 4. Set the default branch in your personal GitHub profile to 'master'
 
 #### Running the Tests
 Tests can be run either from the project root directory or from the `Tests` subfolder.

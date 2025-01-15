@@ -160,6 +160,11 @@ filter Get-GitHubEvent
         $description = "Getting events for issue $Issue in $RepositoryName"
     }
 
+    $getParams = @()
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
+    if ($getParams.Count -gt 0) { $uriFragment = $uriFragment + '?' +  ($getParams -join '&') }
+
     $acceptHeaders = @(
         $script:starfoxAcceptHeader,
         $script:sailorVAcceptHeader,

@@ -913,6 +913,8 @@ filter Get-GitHubRepository
     if ($PSBoundParameters.ContainsKey('Sort')) { $getParams += "sort=$($sortConverter[$Sort])" }
     if ($PSBoundParameters.ContainsKey('Type')) { $getParams += "type=$($Type.ToLower())" }
     if ($PSBoundParameters.ContainsKey('Direction')) { $getParams += "direction=$($directionConverter[$Direction])" }
+    $perPage = Get-GitHubConfiguration -Name PerPage
+    if ($perPage -gt 0) { $getParams += "per_page=$perPage" }
     if ($PSBoundParameters.ContainsKey('Affiliation') -and $Affiliation.Count -gt 0)
     {
         $affiliationMap = @{
