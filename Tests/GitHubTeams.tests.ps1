@@ -954,7 +954,10 @@ Describe 'GitHubTeams\Get-GitHubTeamMember' {
     }
 
     AfterAll {
-        $team | Remove-GitHubTeam -Force
+        if (Get-Variable -Name team -ErrorAction SilentlyContinue)
+        {
+            $team | Remove-GitHubTeam -Force
+        }
     }
 
     Context 'Getting team members using TeamName' {
