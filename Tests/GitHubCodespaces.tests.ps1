@@ -209,7 +209,7 @@ Describe 'GitHubCodespaces\New-GitHubCodespace' {
             }
 
             AfterAll {
-                if ($codespace)
+                if (Get-Variable -Name codespace -ErrorAction SilentlyContinue)
                 {
                     Remove-GitHubCodespace -CodespaceName $codespace.name -Confirm:$false
                 }
@@ -249,7 +249,7 @@ Describe 'GitHubCodespaces\New-GitHubCodespace' {
             }
 
             AfterAll {
-                if ($codespace)
+                if (Get-Variable -Name codespace -ErrorAction SilentlyContinue)
                 {
                     Remove-GitHubCodespace -CodespaceName $codespace.name -Confirm:$false
                 }
@@ -289,7 +289,7 @@ Describe 'GitHubCodespaces\New-GitHubCodespace' {
             }
 
             AfterAll {
-                if ($codespace)
+                if (Get-Variable -Name codespace -ErrorAction SilentlyContinue)
                 {
                     Remove-GitHubCodespace -CodespaceName $codespace.name -Confirm:$false
                 }
@@ -329,7 +329,7 @@ Describe 'GitHubCodespaces\New-GitHubCodespace' {
             }
 
             AfterAll {
-                if ($codespace)
+                if (Get-Variable -Name codespace -ErrorAction SilentlyContinue)
                 {
                     Remove-GitHubCodespace -CodespaceName $codespace.name -Confirm:$false
                 }
@@ -357,7 +357,7 @@ Describe 'GitHubCodespaces\New-GitHubCodespace' {
             }
 
             AfterAll {
-                if ($codespace)
+                if (Get-Variable -Name codespace -ErrorAction SilentlyContinue)
                 {
                     Remove-GitHubCodespace -CodespaceName $codespace.name -Confirm:$false
                 }

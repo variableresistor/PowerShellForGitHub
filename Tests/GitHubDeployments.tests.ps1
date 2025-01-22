@@ -205,12 +205,12 @@ AfterAll -ScriptBlock {
         $repo | Remove-GitHubRepository -Confirm:$false
     }
 
-    if ($reviewerTeam1)
+    if (Get-Variable -Name reviewerTeam1 -ErrorAction SilentlyContinue)
     {
         $reviewerTeam1 | Remove-GitHubTeam -Confirm:$false
     }
 
-    if ($reviewerTeam2)
+    if (Get-Variable -Name reviewerTeam2 -ErrorAction SilentlyContinue)
     {
         $reviewerTeam2 | Remove-GitHubTeam -Confirm:$false
     }
