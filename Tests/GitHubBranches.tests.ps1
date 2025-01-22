@@ -322,7 +322,7 @@ Describe 'GitHubBranches\New-GitHubRepositoryBranch' {
     }
 
     AfterAll -ScriptBlock {
-        if (Get-Variable -Name repo -ErrorAction Ignore)
+        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
         {
             Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
         }
@@ -408,7 +408,7 @@ Describe 'GitHubBranches\Remove-GitHubRepositoryBranch' {
     }
 
     AfterAll -ScriptBlock {
-        if (Get-Variable -Name repo -ErrorAction Ignore)
+        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
         {
             Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
         }
@@ -470,7 +470,7 @@ Describe 'GitHubBranches\Get-GitHubRepositoryBranchProtectionRule' {
         }
 
         AfterAll -ScriptBlock {
-            if (Get-Variable -Name repo -ErrorAction Ignore)
+            if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
             {
                 Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
             }
@@ -723,7 +723,7 @@ Describe 'GitHubBranches\New-GitHubRepositoryBranchProtectionRule' {
     }
 
     AfterAll -ScriptBlock {
-        if (Get-Variable -Name repo -ErrorAction Ignore)
+        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
         {
             Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
         }
@@ -785,7 +785,7 @@ Describe 'GitHubBranches\Remove-GitHubRepositoryBranchProtectionRule' {
 
     }
     AfterAll -ScriptBlock {
-        if (Get-Variable -Name repo -ErrorAction Ignore)
+        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
         {
             Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
         }
@@ -975,7 +975,7 @@ Describe 'GitHubBranches\Get-GitHubRepositoryBranchPatternProtectionRule' {
     }
 
     AfterAll -ScriptBlock {
-        if (Get-Variable -Name repo -ErrorAction Ignore)
+        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
         {
             $repo | Remove-GitHubRepository -Force
         }
@@ -1303,7 +1303,7 @@ Describe 'GitHubBranches\New-GitHubRepositoryBranchPatternProtectionRule' {
     }
 
     AfterAll -ScriptBlock {
-        if (Get-Variable -Name repo -ErrorAction Ignore)
+        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
         {
             $repo | Remove-GitHubRepository -Force
         }
@@ -1364,7 +1364,7 @@ Describe 'GitHubBranches\Remove-GitHubRepositoryBranchPatternProtectionRule' {
     }
 
     AfterAll {
-        if (Get-Variable -Name repo -ErrorAction Ignore)
+        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
         {
             $repo | Remove-GitHubRepository -Force
         }
