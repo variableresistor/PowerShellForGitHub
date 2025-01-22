@@ -435,7 +435,7 @@ Describe 'GitHubCodespaces\Stop-GitHubCodespace' {
 }
 
 AfterAll {
-    if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+    if (Get-Variable -Name repo -ErrorAction Ignore)
     {
         # Should delete any corresponding codespaces along with it
         $repo | Remove-GitHubRepository -Confirm:$false

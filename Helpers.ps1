@@ -709,3 +709,35 @@ function New-ErrorRecord
 
     return $errorRecord
 }
+
+filter Get-PreferredSecurityProtocolType
+{
+    <#
+    .SYNOPSIS
+        Decides the security protocol to use when making a REST API call
+
+    .DESCRIPTION
+        Decides to use TLS 1.3 if the user is running on PowerShell version 7.0 or higher, otherwise
+        uses TLS 1.2 if the user is running on Windows PowerShell.
+
+    .NOTES
+        See https://learn.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#minimum-version
+        TLS Best Practices https://learn.microsoft.com/en-us/dotnet/framework/network-programming/tls
+    #>
+    [CmdletBinding()]
+    [OutputType([Net.SecurityProtocolType])]
+    param()
+    $dotNet47 = 460798
+    if (($PSVersionTable.PSVersion -ge [version]'7.0.0') -or (
+        (Get-ItemPropertyValue -LiteralPath 'HKLM:SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full' -Name Release) -ge $dotNet47)
+    )
+    {
+        # .NET 4.7 (460798) is the first .NET version to respect the system default and supports TLS 1.3 out-of-box
+        return [Net.SecurityProtocolType]::SystemDefault
+    }
+    elseif (([Net.SecurityProtocolType] | Get-Member -MemberType Property -Static).Name -contains 'Tls13')
+    {
+        return [Net.SecurityProtocolType]::Tls13
+    }
+    else { return [Net.SecurityProtocolType]::Tls12 }
+}

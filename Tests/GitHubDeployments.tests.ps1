@@ -200,7 +200,7 @@ Describe 'GitHubDeployments\Remove-GitHubDeploymentEnvironment' {
 }
 
 AfterAll -ScriptBlock {
-    if ($repo)
+    if (Get-Variable -Name repo -ErrorAction Ignore)
     {
         $repo | Remove-GitHubRepository -Confirm:$false
     }

@@ -196,7 +196,7 @@ Describe 'GitHubTeams\Get-GitHubTeam' {
         }
 
         AfterAll {
-            if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+            if (Get-Variable -Name repo -ErrorAction Ignore)
             {
                 $repo | Remove-GitHubRepository -Force
             }
@@ -350,7 +350,7 @@ Describe 'GitHubTeams\New-GitHubTeam' {
         }
 
         AfterAll {
-            if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+            if (Get-Variable -Name repo -ErrorAction Ignore)
             {
                 $repo | Remove-GitHubRepository -Force
             }

@@ -60,7 +60,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -97,7 +97,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -162,7 +162,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -195,7 +195,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -227,7 +227,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -259,7 +259,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -291,7 +291,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -323,7 +323,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -355,7 +355,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -387,7 +387,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -419,7 +419,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -477,7 +477,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -515,7 +515,7 @@ Describe 'GitHubRepositories\New-GitHubRepository' {
             }
 
             AfterAll -ScriptBlock {
-                if ($repo)
+                if (Get-Variable -Name repo -ErrorAction Ignore)
                 {
                     Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
                 }
@@ -577,7 +577,7 @@ Describe 'GitHubRepositories\New-GitHubRepositoryFromTemplate' {
         }
 
         AfterAll {
-            if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+            if (Get-Variable -Name repo -ErrorAction Ignore)
             {
                 Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
             }
@@ -617,7 +617,7 @@ Describe 'GitHubRepositories\New-GitHubRepositoryFromTemplate' {
         }
 
         AfterAll {
-            if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+            if (Get-Variable -Name repo -ErrorAction Ignore)
             {
                 Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
             }
@@ -876,7 +876,7 @@ Describe 'GitHubRepositories\Get-GitHubRepository' {
         }
 
         AfterAll {
-            if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+            if (Get-Variable -Name repo -ErrorAction Ignore)
             {
                 Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
             }
@@ -1279,7 +1279,7 @@ Describe 'GitHubRepositories\Set-GitHubRepository' {
         }
 
         AfterAll -ScriptBlock {
-            if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+            if (Get-Variable -Name repo -ErrorAction Ignore)
             {
                 Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
             }
@@ -1310,7 +1310,7 @@ Describe 'GitHubRepositories\Set-GitHubRepository' {
         }
 
         AfterAll -ScriptBlock {
-            if ($repo)
+            if (Get-Variable -Name repo -ErrorAction Ignore)
             {
                 Remove-GitHubRepository -Uri $repo.svn_url -Confirm:$false
             }
@@ -1905,7 +1905,7 @@ Describe 'GitHubRepositories\Get-GitHubRepositoryActionsPermission' {
     }
 
     AfterAll {
-        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+        if (Get-Variable -Name repo -ErrorAction Ignore)
         {
             $repo | Remove-GitHubRepository -Force
         }
@@ -1951,7 +1951,7 @@ Describe 'GitHubRepositories\Set-GitHubRepositoryActionsPermission' {
     }
 
     AfterAll {
-        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+        if (Get-Variable -Name repo -ErrorAction Ignore)
         {
             $repo | Remove-GitHubRepository -Force
         }
@@ -2096,7 +2096,7 @@ Describe 'GitHubRepositories\Get-GitHubRepositoryTeamPermission' {
             $team | Remove-GitHubTeam -Force
         }
 
-        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+        if (Get-Variable -Name repo -ErrorAction Ignore)
         {
             $repo | Remove-GitHubRepository -Force
         }
@@ -2230,7 +2230,7 @@ Describe 'GitHubRepositories\Set-GitHubRepositoryTeamPermission' {
             $team | Remove-GitHubTeam -Force
         }
 
-        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+        if (Get-Variable -Name repo -ErrorAction Ignore)
         {
             $repo | Remove-GitHubRepository -Force
         }
@@ -2384,7 +2384,7 @@ Describe 'GitHubRepositories\Remove-GitHubRepositoryTeamPermission' {
             $team | Remove-GitHubTeam -Force
         }
 
-        if (Get-Variable -Name repo -ErrorAction SilentlyContinue)
+        if (Get-Variable -Name repo -ErrorAction Ignore)
         {
             $repo | Remove-GitHubRepository -Force
         }

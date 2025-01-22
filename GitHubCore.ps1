@@ -26,6 +26,7 @@
  }
 
 Set-Variable -Scope Script -Option ReadOnly -Name ValidBodyContainingRequestMethods -Value ('Post', 'Patch', 'Put', 'Delete')
+Set-Variable -Scope Script -Option ReadOnly -Name PreferredSecurityProtocolType -Value (Get-PreferredSecurityProtocolType)
 
 function Invoke-GHRestMethod
 {
@@ -275,6 +276,7 @@ function Invoke-GHRestMethod
     }
 
     $originalSecurityProtocol = [Net.ServicePointManager]::SecurityProtocol
+    [Net.ServicePointManager]::SecurityProtocol = $PreferredSecurityProtocolType
 
     # When $Save is in use, we need to remember what file we're saving the result to.
     $outFile = [String]::Empty
@@ -314,11 +316,6 @@ function Invoke-GHRestMethod
 
             # Disable Progress Bar in function scope during Invoke-WebRequest
             $ProgressPreference = 'SilentlyContinue'
-
-            if ($PSVersionTable.PSVersion -lt [version]"7.0.0")
-            {
-                [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-            }
 
             $result = Invoke-WebRequest @params
 
@@ -585,10 +582,7 @@ function Invoke-GHRestMethod
     }
     finally
     {
-        if ($PSVersionTable.PSVersion -lt [Version]'7.0.0')
-        {
-            [Net.ServicePointManager]::SecurityProtocol = $originalSecurityProtocol
-        }
+        [Net.ServicePointManager]::SecurityProtocol = $originalSecurityProtocol
     }
 }
 
